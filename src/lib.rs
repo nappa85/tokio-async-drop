@@ -2,9 +2,7 @@
 macro_rules! tokio_async_drop {
     ($drop:block) => {
         tokio::task::block_in_place(|| {
-            let handle = tokio::runtime::Handle::current();
-            debug_assert!(handle.runtime_flavor() == tokio::runtime::RuntimeFlavor::MultiThread);
-            handle.block_on(async { $drop });
+            tokio::runtime::Handle::current().block_on(async { $drop });
         });
     };
 }
@@ -50,7 +48,19 @@ mod tests {
     }
 
     #[test]
-    fn it_works() {
+    #[should_panic(expected = "can call blocking only when running on the multi-threaded runtime")]
+    fn current_thread() {
+        tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .unwrap()
+            .block_on(async {
+                test_core();
+            });
+    }
+
+    #[test]
+    fn multi_thread() {
         tokio::runtime::Builder::new_multi_thread()
             .enable_all()
             .build()
