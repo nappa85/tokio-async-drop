@@ -2,6 +2,14 @@
 name = "tokio-async-drop"
 version = "0.1.0"
 edition = "2021"
+authors = ["Marco Napetti"]
+repository = "https://github.com/nappa85/tokio-async-drop"
+documentation = "https://docs.rs/tokio-async-drop"
+readme = "../README.md"
+license = "WTFPL"
+description = "macro to enable async drop in a tokio multithreaded runtime"
+categories = ["asynchronous", "rust-patterns"]
+keywords = ["tokio", "async", "drop"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

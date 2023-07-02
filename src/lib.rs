@@ -11,7 +11,6 @@ macro_rules! tokio_async_drop {
 mod tests {
     use super::*;
 
-    #[derive(Debug)]
     struct Foo<'a> {
         inner: &'a mut u8,
     }
